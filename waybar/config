@@ -1,0 +1,108 @@
+{
+    "layer": "top",
+    "position": "top",
+    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["custom/mounted", "custom/night-light", "tray", "custom/weather", "network", "pulseaudio", "backlight", "sway/language", "memory", "cpu", "battery", "custom/power"],
+    "sway/window": {
+        "max-length": 50
+    },
+
+    "battery": {
+        "interval": 10,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        // Connected to AC
+        "format": " {icon} {capacity}%", // Icon: bolt
+        // Not connected to AC
+        "format-discharging": "{icon}  {capacity}%",
+        "format-icons": [
+            "", // Icon: battery-full
+            "", // Icon: battery-three-quarters
+            "", // Icon: battery-half
+            "", // Icon: battery-quarter
+            ""  // Icon: battery-empty
+        ],
+        "tooltip": true
+    },
+
+    "cpu": {
+        "interval": 5,
+        "format": "CPU: {usage}%", // Icon: microchip
+	"on-click": "st gtop",
+        "states": {
+          "warning": 70,
+          "critical": 90
+        }
+    },
+
+    "clock": {
+        "format-alt": "{:%a, %d. %b  %H:%M:%S}"
+    },
+    
+    "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-muted": "",
+    "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "default": ["", ""]
+    },
+    "scroll-step": 1,
+    "on-click": "pavucontrol"
+},
+ 
+    "sway/language": {
+    "format": " {short}",
+    },
+
+    "memory": {
+        "interval": 5,
+        "format": "RAM: {}%",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    },
+
+    "network": {
+        "interface": "wlan0",
+ 	"format-wifi": "{essid} ({signalStrength}%)",
+	"on-click": "exec st nmtui",
+	"on-click-right": "exec st gtop"
+    },
+
+    "custom/bandwith": {
+        "exec": "bash /home/vcerny/.local/bin/nettraf",
+        "restart-interval": 1,
+    },
+
+	"custom/mounted": {
+		"format": "",
+		"on-click": "exec st bashmount"
+	},
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon} {percent}%",
+        "format-icons": ["", "", ""],
+        "on-scroll-up": "light -A 1",
+        "on-scroll-down": "light -U 1",
+        "smooth-scrolling-threshold": 1,
+    },
+
+    "custom/power":{
+        "format":" ",
+        "on-click": "swaynag -t warning -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Suspend' 'swaymsg exec systemctl suspend' -b 'shutdown' 'systemctl shutdown'"
+    },
+
+    "custom/night-light":{
+        "format": "",
+        "format-tooltip": "toggle night light",
+        "on-click": "wlsunset &"
+    },
+}

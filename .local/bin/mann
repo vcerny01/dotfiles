@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Opens a man page as a pdf in emacs
+
+man -t $1 | ps2pdf - /tmp/$1.pdf && emacs /tmp/$1.pdf && rm /tmp/$1.pdf
